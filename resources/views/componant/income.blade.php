@@ -3,7 +3,7 @@
 <div class="row">
      <div class="col-6">
         <!-- Button trigger modal -->
-            <button type="button" class="btn-sm btn btn-info" data-toggle="modal" data-target="#exampleModal">Add Cost</button>
+            <button type="button" class="btn-sm btn btn-info" data-toggle="modal" data-target="#exampleModal">Income</button>
 
         <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"           
@@ -11,7 +11,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add your Daily Cost</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Save Your Income</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -19,17 +19,17 @@
                     <div class="modal-body">
                         <form action="" id="cost_form">
                         <div class="form-group">
-                            <label for="">Cost Event</label>
+                            <label for="">Income Event</label>
                             <input type="text" id="costName"  class="form-control">
                           </div>
                           <div class="form-group">
                                 <label for="eventName">category</label>
                                 
                                 <select class="form-control" id="eventName">
-                                    <option value="no catagory">select catagory</option>
-                                    @foreach($events as $events)
-                                    <option value="{{$events->event_name}}">
-                                        {{$events->event_name}}
+                                    <option value="others">select catagory</option>
+                                    @foreach($catagory as $catagory)
+                                    <option value="{{$catagory->catagory}}">
+                                        {{$catagory->catagory}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-sm btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="button" id="submitCost" class="btn btn-sm btn-primary">save cost</button>
+                        <button type="button" id="submitCost" class="btn btn-sm btn-primary">Save</button>
                     </div>
                     </div>
                 </div>
@@ -73,9 +73,9 @@
                                     
             <select class="form-control" id="category">
                 <option value="">select category</option>
-                @foreach($eve as $val)
-                <option id="select_option" value="{{$val->event_name}}">
-                    {{$val->event_name}}
+                @foreach($cat as $val)
+                <option id="select_option" value="{{$val->catagory}}">
+                    {{$val->catagory}}
                 </option>
                 @endforeach
             </select>
@@ -142,13 +142,13 @@ $('#thisMonth').click(function(){
         $('#cost_table').empty();
         
         
-        var getCustomDate = `${year}-${currentM < 10 ?'0':''}${currentM}`
+        var getIncome = `${year}-${currentM < 10 ?'0':''}${currentM}`
         var category = $('#category').val();
         console.log(category);
-        console.log(getCustomDate)
+        console.log(getIncome)
 
-        axios.post('/selectCostDatewise',{
-            getCustomDate:getCustomDate,
+        axios.post('/selectIncomeDatewase',{
+            getIncome:getIncome,
             category:category
             })
         .then(function(response) {
@@ -161,8 +161,8 @@ $('#thisMonth').click(function(){
                     totalCost += jsonData[i].amount;
                     $('<tr>').html(
                         
-                        "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
+                        "<td class='text-center'>" + jsonData[i].event_name + "</td>" +
+                        "<td class='text-center'> " + jsonData[i].catagory + " </td>" +
                         "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
                         "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
                     ).appendTo('#cost_table');
@@ -171,8 +171,8 @@ $('#thisMonth').click(function(){
                 console.log(totalCost);
                 $('<tr>').html(
                         "<th class='text-center'>Total</th>" +
-                        "<th class='text-center'>Cost </th>" +
-                        "<th class='text-center'>"+totalCost+" /=</th>"+
+                        "<th class='text-center'>Income </th>" +
+                        "<th class='text-center'>"+totalCost+"</th>"+
                         "<th class='text-center'>Only</th>"
                 ).appendTo('#total_row');
 
@@ -196,8 +196,8 @@ $('#customDate').click(function(){
    $('#total_row').empty();
    $('#cost_table').empty();
 
-   axios.post('/selectCostDatewise',{
-       getCustomDate:getCustomDate,
+   axios.post('/selectIncomeDatewase',{
+       getIncome:getCustomDate,
        category:category
        })
         .then(function(response) {
@@ -210,8 +210,8 @@ $('#customDate').click(function(){
                     totalCost += jsonData[i].amount;
                     $('<tr>').html(
                         
-                        "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
+                        "<td class='text-center'>" + jsonData[i].event_name + "</td>" +
+                        "<td class='text-center'> " + jsonData[i].catagory + " </td>" +
                         "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
                         "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
                     ).appendTo('#cost_table');
@@ -220,8 +220,8 @@ $('#customDate').click(function(){
                 console.log(totalCost);
                 $('<tr>').html(
                         "<th class='text-center'>Total</th>" +
-                        "<th class='text-center'>Cost </th>" +
-                        "<th class='text-center'>"+totalCost+" /=</th>"+
+                        "<th class='text-center'>Income </th>" +
+                        "<th class='text-center'>"+totalCost+"</th>"+
                         "<th class='text-center'>Only</th>"
                 ).appendTo('#total_row');
 
@@ -250,14 +250,15 @@ $('#today').click(function(){
               let year =today.getFullYear();
               
               
-              var getCustomDate = `${year}-${currentM < 10 ?'0':''}${currentM}-${date<10 ? '0':''}${date}`
-              console.log(getCustomDate);
-              var category = $('#category').val(" ");
+              var getIncome = `${year}-${currentM < 10 ?'0':''}${currentM}-${date<10 ? '0':''}${date}`
+              console.log(getIncome);
+              var category = $('#category').val();
               console.log(category);
     $('#total_row').empty();
     $('#cost_table').empty();
-    axios.post('/selectCostDatewise',{
-        getCustomDate:getCustomDate
+    axios.post('/selectIncomeDatewase',{
+        getIncome:getIncome,
+        category:category
         })
         .then(function(response) {
 
@@ -269,8 +270,8 @@ $('#today').click(function(){
                     totalCost += jsonData[i].amount;
                     $('<tr>').html(
                         
-                        "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
+                        "<td class='text-center'>" + jsonData[i].event_name + "</td>" +
+                        "<td class='text-center'> " + jsonData[i].catagory + " </td>" +
                         "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
                         "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
                     ).appendTo('#cost_table');
@@ -279,8 +280,8 @@ $('#today').click(function(){
                 console.log(totalCost);
                 $('<tr>').html(
                         "<th class='text-center'>Total</th>" +
-                        "<th class='text-center'>Cost </th>" +
-                        "<th class='text-center'>"+totalCost+" /=</th>"+
+                        "<th class='text-center'>Income </th>" +
+                        "<th class='text-center'>"+totalCost+"</th>"+
                         "<th class='text-center'>Only</th>"
                 ).appendTo('#total_row');
 
@@ -307,7 +308,7 @@ $('#submitCost').click(function() {
 
 function costaddFun(costName,amount,event) {
 	$('#submitCost').html("<div class='spinner-border text-dark' role='status'><span class='visually-hidden'></span></div>");
-	axios.post('/AddCost', {
+	axios.post('/Add_Income', {
 			costName: costName,
 			event: event,
 			amount: amount
@@ -326,7 +327,7 @@ function costaddFun(costName,amount,event) {
                     text: 'Confirm this Cost?'
                   })
                   getCostData();
-                  $('#table_name').html("আজকের খরচের তালিকা");
+                  $('#table_name').html("আজকের  আয়ের তালিকা");
 
 				} else {
 					$('#exampleModal').modal('hide');
@@ -347,26 +348,27 @@ function costaddFun(costName,amount,event) {
 
 function getCostData() {
     $(this).addClass('active');
-            $('#thisMonth').removeClass('active');
-            $('#my_toggle').html("Today")
-            $('#table_name').html("আজকের খরচের তালিকা");
-              let today = new Date();
-              let date = today.getDate();
-              
-              let month = today.getMonth();
-              let currentM = month + 1;
-              let year =today.getFullYear();
-              
-              
-              var getCustomDate = `${year}-${currentM < 10 ?'0':''}${currentM}-${date<10 ? '0':''}${date}`
-              var category = $('#category').val(" ");
-              console.log(category);
-              console.log(getCustomDate);
-    $('#total_row').empty();
-    $('#cost_table').empty();
-    axios.post('/selectCostDatewise',{
-        getCustomDate:getCustomDate
-        })
+      $('#today').removeClass('active');
+      $('#my_toggle').html("This Month");
+      $('#table_name').html("এই মাসের খরচ");
+        let today = new Date();
+        let date = today.getDate();
+        
+        let month = today.getMonth();
+        let currentM = month + 1;
+        let year =today.getFullYear();
+        $('#total_row').empty();
+        $('#cost_table').empty();
+        
+        
+        var getIncome = `${year}-${currentM < 10 ?'0':''}${currentM}`
+        //var category = $('#category').val();
+        //console.log(category);
+        console.log(getIncome)
+
+        axios.post('/selectIncomeDatewase',{
+            getIncome:getIncome
+            })
         .then(function(response) {
 
             if (response.status == 200) {
@@ -377,8 +379,8 @@ function getCostData() {
                     totalCost += jsonData[i].amount;
                     $('<tr>').html(
                         
-                        "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
+                        "<td class='text-center'>" + jsonData[i].event_name + "</td>" +
+                        "<td class='text-center'> " + jsonData[i].catagory + " </td>" +
                         "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
                         "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
                     ).appendTo('#cost_table');
@@ -387,8 +389,8 @@ function getCostData() {
                 console.log(totalCost);
                 $('<tr>').html(
                         "<th class='text-center'>Total</th>" +
-                        "<th class='text-center'>Cost </th>" +
-                        "<th class='text-center'>"+totalCost+" /=</th>"+
+                        "<th class='text-center'>Income </th>" +
+                        "<th class='text-center'>"+totalCost+"</th>"+
                         "<th class='text-center'>Only</th>"
                 ).appendTo('#total_row');
 

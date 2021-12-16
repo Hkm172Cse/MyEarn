@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DailyCostController;
+use App\Http\Controllers\IncomeController;
 
 
 
@@ -17,4 +18,8 @@ Route::post('/AddCatagory', [DailyCostController::Class, 'catagory_add']);
 Route::get('/selectCostCatagory',  [DailyCostController::Class, 'getAllCostCatagory']);
 
 Route::post('/DeleteCatagory', [DailyCostController::Class, 'catagory_delete']);
+Route::get('/income', [IncomeController::Class, 'index']);
+Route::post('/selectIncomeDatewase',  [IncomeController::Class, 'customDateIncome']);
+Route::post('/Add_Income', [IncomeController::Class, 'IncomeMethod']);
+
 
