@@ -16,3 +16,5 @@ Route::get('/costCatagory', [DailyCostController::Class, 'addcatagory']);
 Route::post('/AddCatagory', [DailyCostController::Class, 'catagory_add']);
 Route::get('/selectCostCatagory',  [DailyCostController::Class, 'getAllCostCatagory']);
 
+Route::post('/DeleteCatagory', [DailyCostController::Class, 'catagory_delete']);
+

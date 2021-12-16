@@ -90,6 +90,7 @@
     
     <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
+    <script src="{{asset('js/styleSwitcher.js')}}"></script>
     <script src="{{asset('js/sweetalert2.min.js')}}"></script>
     
     @yield('script')

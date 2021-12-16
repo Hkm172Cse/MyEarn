@@ -45,6 +45,17 @@ class DailyCostController extends Controller
        }
     }
 
+    public function catagory_delete(Request $req){
+        $id = $req->input('catagory_id');
+        $result = costEvent_Model::where('id','=', $id)->delete();
+
+        if($result==true){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
    public function getAllCostCatagory(){
         $result = json_decode(costEvent_Model::orderby('id', 'desc')->get());
         if($result==true){

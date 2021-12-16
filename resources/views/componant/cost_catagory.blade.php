@@ -48,10 +48,9 @@
                                 <table class="table" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th class='text-center'>Id</th>
                                             <th class='text-center'>Catagory</th>
-                                            <th class='text-center'>del</th>
-                                            <th class='text-center'>Edit</th>
+                                            <th class='text-center'>action</th>
+                                            
                                             
                                         </tr>
                                     </thead>
@@ -90,14 +89,13 @@ function getCatagory() {
                 $.each(jsonData, function(i) {
                     
                     $('<tr>').html(
-                        "<td class='text-center'>" + jsonData[i].id + "</td>" +
+                        
                         "<td class='text-center'>" + jsonData[i].event_name + "</td>" +
-                        "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"+
-                        "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
+                        "<td class='text-center'> <a id='catagoryId' data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a> </td>"
                     ).appendTo('#catagory_table');
                 });
 
-               
+                
 
             } else {
 
@@ -108,6 +106,34 @@ function getCatagory() {
         });
 }
 getCatagory();
+
+$(document).on("click", "#catagoryId", function(){
+    let catagory_id = $(this).data("id");
+    console.log(catagory_id);
+    Swal.fire({
+                    icon: 'error',
+                    title: 'delete',
+                    text: 'successfully'
+                  })
+    
+    $('#catagory_table').empty();
+        axios.post('/DeleteCatagory', {catagory_id:catagory_id})
+		.then(function(response){
+			if (response.status == 200) {
+                
+                
+                  getCatagory();
+			} 
+		})
+		.catch(function(error) {
+			
+		});
+              
+            
+    //#######
+        
+})
+
 
 $('#submit_cat').click(function() {
 
@@ -123,7 +149,7 @@ function catagoryAddFun(catName) {
 
     $('#catagory_table').empty();
 	axios.post('/AddCatagory', {
-			event_name: catName,
+			event_name: catName
 		})
 		.then(function(response){
 			$('#submit_cat').html("save catagory");
