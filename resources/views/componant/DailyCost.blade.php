@@ -94,10 +94,8 @@
                                     <thead>
                                         <tr>
                                             <th class='text-center'>Event</th>
-                                            <th class='text-center'>Catagory</th>
                                             <th class='text-center'>Amount</th>
-                                            <th class='text-center'>Action</th>
-                                            
+                                            <th class='text-center'>Issue Date</th> 
                                         </tr>
                                     </thead>
                                     <tfoot id="total_row">
@@ -160,11 +158,9 @@ $('#thisMonth').click(function(){
                 $.each(jsonData, function(i) {
                     totalCost += jsonData[i].amount;
                     $('<tr>').html(
-                        
                         "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
-                        "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
-                        "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
+                        "<td class='text-center'> " + jsonData[i].amount + " </td>" +
+                        "<td class='text-center'>"+ jsonData[i].created+"</td>"
                     ).appendTo('#cost_table');
                 });
 
@@ -211,9 +207,8 @@ $('#customDate').click(function(){
                     $('<tr>').html(
                         
                         "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
-                        "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
-                        "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
+                        "<td class='text-center'> " + jsonData[i].amount + " </td>" +
+                        "<td class='text-center'>"+ jsonData[i].created+"</td>"
                     ).appendTo('#cost_table');
                 });
 
@@ -270,9 +265,8 @@ $('#today').click(function(){
                     $('<tr>').html(
                         
                         "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
-                        "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
-                        "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
+                        "<td class='text-center'> " + jsonData[i].amount + " </td>" +
+                        "<td class='text-center'>"+ jsonData[i].created+"</td>"
                     ).appendTo('#cost_table');
                 });
 
@@ -345,11 +339,10 @@ function costaddFun(costName,amount,event) {
 }
 // get Data for show in table
 
-function getCostData() {
+function todayCostView() {
     $(this).addClass('active');
             $('#thisMonth').removeClass('active');
             $('#my_toggle').html("Today")
-            $('#table_name').html("আজকের খরচের তালিকা");
               let today = new Date();
               let date = today.getDate();
               
@@ -378,18 +371,19 @@ function getCostData() {
                     $('<tr>').html(
                         
                         "<td class='text-center'>" + jsonData[i].cost_name + "</td>" +
-                        "<td class='text-center'> " + jsonData[i].event + " </td>" +
-                        "<td class='text-center'>"+ jsonData[i].amount+"</td>"+
-                        "<td class='text-center'> <a class='EditeService' data-id=" + jsonData[i].id + " ><i class='fas fa-edit'></i></a> </td>"
+                        "<td class='text-center'> " + jsonData[i].amount + " </td>" +
+                        "<td class='text-center'>"+ jsonData[i].created+"</td>"
                     ).appendTo('#cost_table');
                 });
 
                 console.log(totalCost);
+                
+                $('#table_name').html("আজকের খরচের তালিকা");
                 $('<tr>').html(
                         "<th class='text-center'>Total</th>" +
-                        "<th class='text-center'>Cost </th>" +
                         "<th class='text-center'>"+totalCost+" /=</th>"+
-                        "<th class='text-center'>Only</th>"
+                        "<th class='text-center'>Cost </th>"
+                        
                 ).appendTo('#total_row');
 
             } else {
@@ -400,7 +394,7 @@ function getCostData() {
         .catch(function(error) {
         });
 }
-getCostData();
+todayCostView();
 
 
 
