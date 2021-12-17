@@ -319,7 +319,7 @@ function costaddFun(costName,amount,event) {
                     title: 'Submit  Cost...',
                     text: 'Confirm this Cost?'
                   })
-                  getCostData();
+                  todayCostView();
                   $('#table_name').html("আজকের খরচের তালিকা");
 
 				} else {
