@@ -50,9 +50,43 @@
             <button id="totalBtn" class="btn btn-info btn-block btn-sm"></button>
         </div>
         <!-- End lengin Card-->
-        <!--Start Table-->
-        
-        <!--End Table-->
+        <!--Start EditModal-->
+        <div class="modal fade" id="EditModal" tabindex="-1" role="dialog"           
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Lending Modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" id="cost_form">
+                        <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text" id="person_name"  class="form-control">
+                          </div>
+
+                          <div class="form-group">
+                            <label for="">Amount</label>
+                            <input type="number" id="lending_amount"  class="form-control">
+                          </div>
+                          <div class="form-group">
+                            <label for="">Pay amount</label>
+                            <input type="number" id="payAmount"  class="form-control">
+                          </div>
+                        </form>
+                         
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sm btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" id="submitCost" class="btn btn-sm btn-primary">save cost</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        <!--End EditModal-->
 
 
            
@@ -160,16 +194,21 @@ todayCostView();
 $(document).on("click", "#edit_lending", function(){
     
     let editId = $(this).attr('edit_id');
-    axios.get('/lending_single_row_catch')
+    axios.post('/lending_single_row_catch',{editid:editId})
     .then(function(response){
         if(response.status==200){
+            $('#EditModal').modal('show');
             let getData = response.data;
+            console.log(getData);
+            $('#person_name').val(getData[0].name);
+            $('#lending_amount').val(getData[0].amount);
+            
         }else{
 
         }
     })
     .catch(function(error){
-        
+
     })
 })
 

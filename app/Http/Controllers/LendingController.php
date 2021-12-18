@@ -37,4 +37,10 @@ class LendingController extends Controller
             return 0;
         }
    }
+
+   public function selectEditData(Request $req){
+    $id = $req->input('editid');
+    $result =  json_encode(Lenging_Model::where('id', '=', $id)->get()); 
+    return $result;
+   }
 }
