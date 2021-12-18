@@ -3,7 +3,7 @@
 <div class="row mb-4">
      <div class="col-12">
         <!-- Button trigger modal -->
-            <button type="button" class="btn-sm btn btn-info btn-block" data-toggle="modal" data-target="#exampleModal">Add Cost</button>
+            <button type="button" class="btn-sm btn btn-info btn-block" data-toggle="modal" data-target="#exampleModal">ধার দেওয়া</button>
 
         <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"           
@@ -136,8 +136,8 @@ function todayCostView() {
                                             "<div class='text-xs font-weight-bold text-warning text-uppercase mb-1'>"+ jsonData[i].name +"</div>"+
                                             "<div class='h5 mb-0 font-weight-bold text-gray-800'>" + jsonData[i].amount + "</div>"+
                                         "</div>"+
-                                        "<div class='col-auto' edit_id ="+jsonData[i].id+">"+
-                                            "<i class='fas fa-comments fa-2x text-gray-300'></i>"+
+                                        "<div class='col-auto'>"+
+                                            "<button id='edit_lending' edit_id ="+jsonData[i].id+" class='btn btn-info btn-sm'><i class='fas fa-comments fa-2x text-gray-300'></i></button>"+
                                         "</div>"+
                                     "</div>"+
                                 "</div>"+
@@ -157,6 +157,21 @@ function todayCostView() {
 }
 todayCostView();
 
+$(document).on("click", "#edit_lending", function(){
+    
+    let editId = $(this).attr('edit_id');
+    axios.get('/lending_single_row_catch')
+    .then(function(response){
+        if(response.status==200){
+            let getData = response.data;
+        }else{
+
+        }
+    })
+    .catch(function(error){
+        
+    })
+})
 
 
 </script>
