@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2021 at 09:24 PM
+-- Generation Time: Dec 18, 2021 at 09:59 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `single_earn`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_borrow`
+--
+
+CREATE TABLE `table_borrow` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `amount` double NOT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `table_borrow`
+--
+
+INSERT INTO `table_borrow` (`id`, `name`, `amount`, `created`) VALUES
+(1, 'সুজন', 7000, '2021-12-18 20:03:48'),
+(2, 'বুনু', 6000, '2021-12-18 20:03:48'),
+(3, 'স্কুল', 0, '2021-12-18 20:15:45'),
+(4, 'দোকান বাকি', 87, '2021-12-18 20:53:21');
 
 -- --------------------------------------------------------
 
@@ -65,7 +88,16 @@ INSERT INTO `table_cost` (`id`, `cost_name`, `event`, `amount`, `created`) VALUE
 (66, 'রিয়েক্ট কোর্স', 'vehicle', 1200, '2021-12-16 05:06:43'),
 (67, 'React', 'Online Course', 1200, '2021-12-16 06:44:41'),
 (68, 'টিসু', 'ম্যাচের বাজার', 25, '2021-12-16 16:22:42'),
-(69, 'টিসু, মগ, সবজি', 'ম্যাচের বাজার', 120, '2021-12-16 18:20:39');
+(69, 'টিসু, মগ, সবজি', 'ম্যাচের বাজার', 120, '2021-12-16 18:20:39'),
+(70, 'মাছ', 'বন্ধন ম্যাচ', 220, '2021-12-17 18:54:54'),
+(71, 'চকলেট', 'no catagory', 130, '2021-12-17 19:17:20'),
+(72, 'amar koros', 'no catagory', 3, '2021-12-17 20:37:13'),
+(73, 'macher koros', 'no catagory', 6, '2021-12-17 20:39:43'),
+(74, 'ফুল কপি', 'ম্যাচের বাজার', 50, '2021-12-18 19:08:00'),
+(75, 'টমেটো', 'ম্যাচের বাজার', 30, '2021-12-18 19:08:24'),
+(76, 'টমেটো', 'বন্ধন ম্যাচ', 30, '2021-12-18 19:09:44'),
+(77, 'ফুল কপি', 'বন্ধন ম্যাচ', 50, '2021-12-18 19:10:02'),
+(78, 'পেয়াজ ১কেজি', 'বন্ধন ম্যাচ', 40, '2021-12-18 19:10:49');
 
 -- --------------------------------------------------------
 
@@ -88,7 +120,8 @@ INSERT INTO `table_cost_event` (`id`, `event_name`) VALUES
 (3, 'Shoping'),
 (5, 'School'),
 (7, 'Online Course'),
-(27, 'ম্যাচের বাজার');
+(27, 'ম্যাচের বাজার'),
+(28, 'বন্ধন ম্যাচ');
 
 -- --------------------------------------------------------
 
@@ -113,7 +146,9 @@ INSERT INTO `table_income` (`id`, `event_name`, `catagory`, `amount`, `created`)
 (2, 'Fayeja', 'private', 6000, '2021-12-16 18:42:23'),
 (3, 'টাইপিং', 'Project', 4000, '2021-12-16 19:17:54'),
 (4, 'sifat', 'no catagory', 2500, '2021-12-16 19:29:00'),
-(5, 'aman', 'others', 400, '2021-12-16 20:00:08');
+(5, 'aman', 'others', 400, '2021-12-16 20:00:08'),
+(6, '355', 'others', 345, '2021-12-18 19:31:52'),
+(7, 'Sifath', 'Tuition', 2500, '2021-12-18 19:38:28');
 
 -- --------------------------------------------------------
 
@@ -131,12 +166,51 @@ CREATE TABLE `table_income_catagory` (
 --
 
 INSERT INTO `table_income_catagory` (`id`, `catagory`) VALUES
-(1, 'Private'),
-(2, 'Project');
+(6, 'Developing'),
+(7, 'Tuition'),
+(8, 'School'),
+(9, 'Others');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_lending`
+--
+
+CREATE TABLE `table_lending` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `amount` double NOT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `table_lending`
+--
+
+INSERT INTO `table_lending` (`id`, `name`, `amount`, `created`) VALUES
+(1, 'aliusl islam dipu', 0, '2021-12-17 20:46:50'),
+(2, 'Nayem', 1750, '2021-12-17 20:47:27'),
+(3, 'সুজন', 0, '2021-12-17 21:46:53'),
+(4, 'নাজমুল হাসান', -78, '2021-12-17 21:48:47'),
+(5, 'কামরুল হাসান (ম্যাচ মেম্বার)', 0, '2021-12-17 21:55:00'),
+(6, 'ফারুক', 0, '2021-12-18 04:53:54'),
+(7, 'সুজন', 1200, '2021-12-18 16:52:07'),
+(8, 'দিপু', 18000, '2021-12-18 17:55:52'),
+(9, 'দিপু', 250, '2021-12-18 17:56:21'),
+(10, 'কামরুল হাসান', 0, '2021-12-18 17:57:07'),
+(11, 'ফারুক (ফুফুতো ভাই)', 5000, '2021-12-18 17:58:01'),
+(12, 'কামরুল হাসান', 200, '2021-12-18 18:48:13');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `table_borrow`
+--
+ALTER TABLE `table_borrow`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `table_cost`
@@ -163,32 +237,50 @@ ALTER TABLE `table_income_catagory`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `table_lending`
+--
+ALTER TABLE `table_lending`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `table_borrow`
+--
+ALTER TABLE `table_borrow`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `table_cost`
 --
 ALTER TABLE `table_cost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `table_cost_event`
 --
 ALTER TABLE `table_cost_event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `table_income`
 --
 ALTER TABLE `table_income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `table_income_catagory`
 --
 ALTER TABLE `table_income_catagory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `table_lending`
+--
+ALTER TABLE `table_lending`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
