@@ -3,7 +3,7 @@
 <div class="row mb-4">
      <div class="col-12">
         <!-- Button trigger modal -->
-            <button type="button" class="btn-sm btn btn-info btn-block" data-toggle="modal" data-target="#exampleModal">ধার দেওয়া</button>
+            <button type="button" class="btn-sm btn btn-secondary btn-block" data-toggle="modal" data-target="#exampleModal">ঋণ গ্রহণ</button>
 
         <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"           
@@ -47,7 +47,7 @@
                             
         </div>
         <div class="row mt-4">
-            <button id="totalBtn" class="btn btn-info btn-block btn-sm"></button>
+            <button id="totalBtn" class="btn btn-secondary btn-block btn-sm"></button>
         </div>
         <!-- End lengin Card-->
         <!--Start EditModal-->
@@ -112,13 +112,13 @@ $(document).on("click","#payedLendingBtn", function(){
         Swal.fire({
                     icon: 'error',
                     title: 'Submit',
-                    text: 'ঋণ গ্রহণযোগ্য নয়'
+                    text: 'পরিশোধ গ্রহণযোগ্য নয়'
                   })
 
         }else{
     
 
-    axios.post('/payLending',{
+    axios.post('/payBorrow',{
         payid:payid,
         updateAmount:updateAmount
         })
@@ -154,7 +154,7 @@ $('#submitCost').click(function() {
 
 function costaddFun(costName,amount) {
 	$('#submitCost').html("<div class='spinner-border text-dark' role='status'><span class='visually-hidden'></span></div>");
-	axios.post('/AddLending', {
+	axios.post('/AddBorrow', {
 			costName: costName,
 			amount: amount
 		})
@@ -169,7 +169,7 @@ function costaddFun(costName,amount) {
                     Swal.fire({
                     icon: 'error',
                     title: 'Submit',
-                    text: 'ঋণ দেওয়া হয়েছে'
+                    text: 'ঋণ গ্রহণ করা হয়েছে'
                   })
                   todayCostView();
                   
@@ -195,7 +195,7 @@ function todayCostView() {
     
     $('#lending_div').empty();
     
-    axios.get('/selectLending')
+    axios.get('/selectBorrow')
         .then(function(response) {
 
             if (response.status == 200) {
@@ -207,15 +207,15 @@ function todayCostView() {
                 $.each(jsonData, function(i) {
                     totalCost += jsonData[i].amount;
                     $("<div class='mt-4'>").html(
-                            "<div class='card border-left-warning shadow h-100 py-2'>"+
+                            "<div class='card border-left-secondary shadow h-100 py-2'>"+
                                 "<div class='card-body'>"+
                                     "<div class='row no-gutters align-items-center'>"+
                                         "<div class='col mr-2'>"+
-                                            "<div class='text-xs font-weight-bold text-warning text-uppercase mb-1'>"+ jsonData[i].name +"</div>"+
+                                            "<div class='text-xs font-weight-bold text-secondary text-uppercase mb-1'>"+ jsonData[i].name +"</div>"+
                                             "<div class='h5 mb-0 font-weight-bold text-gray-800'>" + jsonData[i].amount + "</div>"+
                                         "</div>"+
                                         "<div class='col-auto'>"+
-                                            "<button id='edit_lending' edit_id ="+jsonData[i].id+" class='btn btn-sm'><i class='fab fa-cc-amazon-pay fa-2x text-info'></i></button>"+
+                                            "<button id='edit_lending' edit_id ="+jsonData[i].id+" class='btn btn-sm'><i class='fab fa-cc-amazon-pay fa-2x text-secondary'></i></button>"+
                                         "</div>"+
                                     "</div>"+
                                 "</div>"+
@@ -238,7 +238,7 @@ todayCostView();
 $(document).on("click", "#edit_lending", function(){
     
     let editId = $(this).attr('edit_id');
-    axios.post('/lending_single_row_catch',{editid:editId})
+    axios.post('/borrow_single_row_catch',{editid:editId})
     .then(function(response){
         if(response.status==200){
             $('#EditModal').modal('show');

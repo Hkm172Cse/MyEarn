@@ -17,6 +17,42 @@ class IncomeController extends Controller
         return view('componant.income', ['catagory'=>$catagory, 'cat'=>$cat ]);
     }
 
+    public function addcatagory(){
+        $events = json_decode(incomeCatagoryModel::orderby('id', 'desc')->get());
+        $eve = json_decode(incomeCatagoryModel::orderby('id', 'desc')->get());
+        return view('componant.income_catagory', ['events'=>$events, 'eve'=>$eve ]);
+    }
+
+    public function catagory_add(Request $req){
+        $event_name = $req->input('event_name');
+        $result = incomeCatagoryModel::insert(['catagory'=>$event_name]);
+        if($result==true){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function catagory_delete(Request $req){
+        $id = $req->input('catagory_id');
+        $result = incomeCatagoryModel::where('id','=', $id)->delete();
+
+        if($result==true){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getAllCostCatagory(){
+        $result = json_decode(incomeCatagoryModel::orderby('id', 'desc')->get());
+        if($result==true){
+            return $result;
+        }else{
+            return 0;
+        }
+   }
+
     public function customDateIncome(Request $req){
         $created =  $req->input('getIncome');
         $category = $req->input('category');

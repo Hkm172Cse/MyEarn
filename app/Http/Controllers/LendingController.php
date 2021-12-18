@@ -30,7 +30,7 @@ class LendingController extends Controller
     } 
 
     public function getAllLending(){
-        $result = json_decode(Lenging_Model::orderby('id', 'desc')->get());
+        $result = json_decode(Lenging_Model::where('amount','>', 0)->orderby('id', 'desc')->get());
         if($result==true){
             return $result;
         }else{

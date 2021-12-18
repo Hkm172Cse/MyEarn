@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DailyCostController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\LendingController;
+use App\Http\Controllers\BorrowController;
 
 
 
@@ -27,6 +28,17 @@ Route::get('/lending', [LendingController::Class, 'index']);
 Route::post('/AddLending', [LendingController::Class, 'Lending_add_method']);
 Route::get('/selectLending',  [LendingController::Class, 'getAllLending']);
 Route::post('/lending_single_row_catch', [LendingController::Class, 'selectEditData']);
-Route::post('/payLending', [LendingController::Class, 'payLendingMethod']);
 
+Route::post('/payLending', [LendingController::Class, 'payLendingMethod']);
+Route::get('/incomeCatagory', [IncomeController::Class, 'addcatagory']);
+Route::get('/selectIncomeCatagory',  [IncomeController::Class, 'getAllCostCatagory']);
+Route::post('/AddIncomeCatagory', [IncomeController::Class, 'catagory_add']);
+
+Route::post('/DeleteIncomeCatagory', [IncomeController::Class, 'catagory_delete']);
+Route::get('/borrow', [BorrowController::Class, 'index']);
+Route::get('/selectBorrow',  [BorrowController::Class, 'getAllBorrow']);
+Route::post('/AddBorrow', [BorrowController::Class, 'Borrow_add_method']);
+
+Route::post('/borrow_single_row_catch', [BorrowController::Class, 'selectEditData']);
+Route::post('/payBorrow', [BorrowController::Class, 'payBorrowMethod']);
 

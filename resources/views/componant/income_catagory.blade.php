@@ -41,7 +41,7 @@
         
         <div class="card shadow mb-4 mt-4">
                         <div class="card-header py-3">
-                            <h6 id="table_name" class="m-0 font-weight-light text-primary">DataTables Example</h6>
+                            <h6 id="table_name" class="m-0 font-weight-light text-primary">Income Catagory</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -79,7 +79,7 @@
 
 function getCatagory() {
            
-    axios.get('/selectCostCatagory')
+    axios.get('/selectIncomeCatagory')
         .then(function(response) {
 
             if (response.status == 200) {
@@ -90,7 +90,7 @@ function getCatagory() {
                     
                     $('<tr>').html(
                         
-                        "<td class='text-center'>" + jsonData[i].event_name + "</td>" +
+                        "<td class='text-center'>" + jsonData[i].catagory + "</td>" +
                         "<td class='text-center'> <a id='catagoryId' data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a> </td>"
                     ).appendTo('#catagory_table');
                 });
@@ -119,7 +119,7 @@ $(document).on("click", "#catagoryId", function(){
 
    
     $('#catagory_table').empty();
-        axios.post('/DeleteCatagory', {catagory_id:catagory_id})
+        axios.post('/DeleteIncomeCatagory', {catagory_id:catagory_id})
 		.then(function(response){
 			if (response.status == 200) {
                 
@@ -150,7 +150,7 @@ function catagoryAddFun(catName) {
 	$('#submit_cat').html("<div class='spinner-border text-dark' role='status'><span class='visually-hidden'></span></div>");
 
     $('#catagory_table').empty();
-	axios.post('/AddCatagory', {
+	axios.post('/AddIncomeCatagory', {
 			event_name: catName
 		})
 		.then(function(response){

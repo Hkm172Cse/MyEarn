@@ -307,6 +307,21 @@ $('#submitCost').click(function() {
 })
 
 function costaddFun(costName,amount,event) {
+
+    if(costName== ""){
+        Swal.fire({
+                    icon: 'error',
+                    title: 'Submit Failed',
+                    text: 'Incone Name Not Fillup'
+                  })
+    }
+    else if(amount == ""){
+        Swal.fire({
+                    icon: 'error',
+                    title: 'Submit Failed',
+                    text: 'Amount Not Fillup'
+                  })
+    }else{
 	$('#submitCost').html("<div class='spinner-border text-dark' role='status'><span class='visually-hidden'></span></div>");
 	axios.post('/Add_Income', {
 			costName: costName,
@@ -341,7 +356,7 @@ function costaddFun(costName,amount,event) {
 			$('#exampleModal').modal('hide');
 		});
 
-
+  }
 
 }
 // get Data for show in table
