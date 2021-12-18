@@ -43,4 +43,20 @@ class LendingController extends Controller
     $result =  json_encode(Lenging_Model::where('id', '=', $id)->get()); 
     return $result;
    }
+
+   public function payLendingMethod(Request $req){
+       $id = $req->input('payid');
+       $payamount = $req->input('updateAmount');
+        
+      // $result  = Lenging_Model::where('id', '=', $id)->update(['amount'=>$payamount]);
+     $result = DB::table('table_lending')
+            ->where('id', $id)
+            ->update(['amount' => $payamount]);
+
+      if($result == true){
+          return 1;
+      }else{
+          return 0;
+      }
+   }
 }

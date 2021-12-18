@@ -27,5 +27,6 @@ Route::get('/lending', [LendingController::Class, 'index']);
 Route::post('/AddLending', [LendingController::Class, 'Lending_add_method']);
 Route::get('/selectLending',  [LendingController::Class, 'getAllLending']);
 Route::post('/lending_single_row_catch', [LendingController::Class, 'selectEditData']);
+Route::post('/payLending', [LendingController::Class, 'payLendingMethod']);
 
 

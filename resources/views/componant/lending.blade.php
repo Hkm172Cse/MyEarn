@@ -62,7 +62,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="" id="cost_form">
+                        <form action="" id="lending_pay">
                         <div class="form-group">
                             <label for="">Name</label>
                             <input type="text" id="person_name"  class="form-control">
@@ -71,6 +71,7 @@
                           <div class="form-group">
                             <label for="">Amount</label>
                             <input type="number" id="lending_amount"  class="form-control">
+                            <input type="hidden" id="payid">
                           </div>
                           <div class="form-group">
                             <label for="">Pay amount</label>
@@ -81,7 +82,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-sm btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="button" id="submitCost" class="btn btn-sm btn-primary">save cost</button>
+                        <button type="button" id="payedLendingBtn" class="btn btn-sm btn-primary">Pay</button>
                     </div>
                     </div>
                 </div>
@@ -98,6 +99,33 @@
 @section('script')
 
 <script>
+$(document).on("click","#payedLendingBtn", function(){
+    let payid = $('#payid').val();
+    let name = $('#person_name').val();
+    let oldAmount = $('#lending_amount').val()
+    let payAmount = $('#payAmount').val();
+    let updateAmount = oldAmount - payAmount;
+
+    console.log(updateAmount);
+    console.log(payid);
+
+    axios.post('/payLending',{
+        payid:payid,
+        updateAmount:updateAmount
+        })
+    .then(function(response){
+        if(response.status==200){
+            $('#EditModal').modal('hide');
+            $('#lending_pay')[0].reset();
+            todayCostView();
+        }
+    })
+    .catch(function(error){
+
+    })
+    
+})
+
 $('#submitCost').click(function() {
 
     var costName = $('#costName').val();
@@ -202,6 +230,7 @@ $(document).on("click", "#edit_lending", function(){
             console.log(getData);
             $('#person_name').val(getData[0].name);
             $('#lending_amount').val(getData[0].amount);
+            $('#payid').val(getData[0].id);
             
         }else{
 
