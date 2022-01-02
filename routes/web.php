@@ -6,6 +6,7 @@ use App\Http\Controllers\DailyCostController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\LendingController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\LoginController;
 
 
 
@@ -16,7 +17,7 @@ Route::get('/getCostData', [DailyCostController::Class, 'getCostData_method']);
 
 Route::post('/selectCostDatewise',  [DailyCostController::Class, 'customDateCost']);
 Route::get('/costCatagory', [DailyCostController::Class, 'addcatagory']);
-Route::post('/AddCatagory', [DailyCostController::Class, 'catagory_add']);
+Route::post('/AddCatagory', [DailyCostController::Class, 'catagory_add'])->middleware('loginCheck');
 Route::get('/selectCostCatagory',  [DailyCostController::Class, 'getAllCostCatagory']);
 
 Route::post('/DeleteCatagory', [DailyCostController::Class, 'catagory_delete']);
@@ -41,4 +42,8 @@ Route::post('/AddBorrow', [BorrowController::Class, 'Borrow_add_method']);
 
 Route::post('/borrow_single_row_catch', [BorrowController::Class, 'selectEditData']);
 Route::post('/payBorrow', [BorrowController::Class, 'payBorrowMethod']);
+Route::get('/login', [LoginController::Class, 'index']);
+
+Route::post('/LoginAdmin', [LoginController::Class, 'Login_method']);
+Route::get('/logout', [LoginController::Class, 'logout_method']);
 

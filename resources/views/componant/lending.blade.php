@@ -41,7 +41,7 @@
     </div>
     
 </div>
-
+        <input id="permitId" type="hidden" value="{{session('password')}}">
         <!--Start lending Card-->
         <div id="lending_div" class="mt-4 col-xl-3 col-md-6">
                             
@@ -100,6 +100,8 @@
 
 <script>
 $(document).on("click","#payedLendingBtn", function(){
+    let permitId = $('#permitId').val();
+    if(permitId != ''){
     let payid = $('#payid').val();
     let name = $('#person_name').val();
     let oldAmount = $('#lending_amount').val()
@@ -116,40 +118,58 @@ $(document).on("click","#payedLendingBtn", function(){
                   })
 
         }else{
-    
+            
 
-    axios.post('/payLending',{
-        payid:payid,
-        updateAmount:updateAmount
-        })
-    .then(function(response){
-        if(response.status==200){
-            $('#EditModal').modal('hide');
-            $('#lending_pay')[0].reset();
+            axios.post('/payLending',{
+                payid:payid,
+                updateAmount:updateAmount
+                })
+            .then(function(response){
+                if(response.status==200){
+                    $('#EditModal').modal('hide');
+                    $('#lending_pay')[0].reset();
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Submit',
+                            text: 'পরিশোধ করা হয়েছে'
+                        })
+                    todayCostView();
+                }
+            })
+            .catch(function(error){
+
+            })
+
+            }      
+        }else{
             Swal.fire({
-                    icon: 'error',
-                    title: 'Submit',
-                    text: 'পরিশোধ করা হয়েছে'
-                  })
-            todayCostView();
+                        icon: 'error',
+                        title: 'Submit',
+                        text: 'Not Allowed'
+                    })
         }
-    })
-    .catch(function(error){
-
-    })
-
-}
+    
     
 })
 
 $('#submitCost').click(function() {
 
-    var costName = $('#costName').val();
-    var amount = $('#amount').val();
+    let permitId = $('#permitId').val()
+    if(permitId!=''){
+        var costName = $('#costName').val();
+        var amount = $('#amount').val();
 
-    console.log(costName+" "+amount);
+        console.log(costName+" "+amount);
 
-    costaddFun(costName,amount)
+        costaddFun(costName,amount)
+    }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Submit',
+                    text: 'Not Allowed'
+                  })
+    }
+    
 })
 
 function costaddFun(costName,amount) {
